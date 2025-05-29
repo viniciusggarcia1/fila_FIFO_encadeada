@@ -74,7 +74,6 @@ function printQueue(queue) {
 }
 
 // Now we will develop the Rick and Morty Queue, usind the Rick and Morty API
-
 const charsContainer = document.querySelector(".chars-container");
 const API = "https://rickandmortyapi.com/api";
 
@@ -102,6 +101,7 @@ const myQueue = new Queue();
 
 function updateQueueDisplay() {
     charsContainerQueue.innerHTML = "";
+    charsContainerQueue.classList.add("char-box");
     let current = myQueue.start;
     while (current) {
         charsContainerQueue.innerHTML += `

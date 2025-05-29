@@ -126,3 +126,20 @@ main .chars .chars-container {
 #attendButton:hover {
   background-color: #45a049;
 }
+
+.char-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 23px;
+    color: #333;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.char-box:empty {
+  display: none;
+}
