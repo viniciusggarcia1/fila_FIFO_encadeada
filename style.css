@@ -73,7 +73,6 @@ main .chars .chars-container {
 .chars .chars-container .char {
   border-radius: 10px;
   overflow: hidden;
-  background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -91,4 +90,39 @@ main .chars .chars-container {
   display: block;
   font-size: 14px;
   margin-top: 5px;
+}
+
+.char-info:hover {
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chars-container:hover {
+  cursor: pointer;
+}
+
+.support-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10rem;
+  margin-top: 5rem;
+}
+
+
+
+#attendButton {
+  background-color: #4CAF50; 
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#attendButton:hover {
+  background-color: #45a049;
 }

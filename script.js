@@ -96,24 +96,88 @@ async function getCharacters({name, species, gender, status, page=1}) {
     return characters.results;
 }
 
-async function render(characters) {
-    characters.forEach((character) => {
-        return charsContainer.innerHTML += `
-            <div class="char">
-                <img src="${character.image}" alt="${character.image}">
-                <div class="char-info">
-                <h3>${character.name}</h3>
-                <span>${character.species}</span>
-                </div>
+const charsContainerQueue = document.querySelector(".chars-queue");
+
+const myQueue = new Queue();
+
+function updateQueueDisplay() {
+    charsContainerQueue.innerHTML = "";
+    let current = myQueue.start;
+    while (current) {
+        charsContainerQueue.innerHTML += `
+            <div class="chars">
+                ${current.value}
             </div>
-            `}
-    )
+        `;
+        current = current.next;
+    }
 }
 
-async function main () {
+async function render(characters) {
+    charsContainer.innerHTML = ""; 
+    characters.forEach((character) => {
+        const card = document.createElement("div");
+        card.classList.add("char");
+        card.innerHTML = `
+            <img src="${character.image}" alt="${character.name}">
+            <div class="char-info">
+                <h3>${character.name}</h3>
+                <span>${character.species}</span>
+            </div>
+        `;
+
+        // ao clicar no card, adiciona na fila (enqueue) e atualiza display
+        card.addEventListener("click", () => {
+            myQueue.enqueue(character.name);
+            updateQueueDisplay();
+        });
+
+        charsContainer.appendChild(card);
+    });
+}
+
+attendButton.addEventListener("click", () => {
+    const attended = myQueue.dequeue();
+    if (attended) {
+        console.log(`Atendido: ${attended}`);
+    } else {
+        console.log("Fila vazia!");
+    }
+    updateQueueDisplay();
+});
+
+async function main() {
     const characters = await getCharacters(defaultFilters);
     render(characters);
 }
+
+function getFilterValues() {
+  return {
+    name: nameInput.value.trim(),
+    species: speciesSelect.value,
+    gender: genderSelect.value,
+    status: statusSelect.value,
+  };
+}
+
+const speciesSelect = document.querySelector("#species");
+const genderSelect = document.querySelector("#gender");
+const statusSelect = document.querySelector("#status");
+
+speciesSelect.addEventListener("change", (event) => {
+  defaultFilters.species = speciesSelect.value;
+  main ();
+});
+
+genderSelect.addEventListener("change", (event) => {
+  defaultFilters.gender = genderSelect.value;
+  main ();
+});
+
+statusSelect.addEventListener("change", (event) => {
+  defaultFilters.status = statusSelect.value;
+  main ();
+});
 
 main ();
 
